@@ -1,8 +1,8 @@
-.axis--x path {
+.vessels .axis--x path {
     display: none;
 }
 
-.line {
+.vessels .line {
     fill: none;
     stroke: steelblue;
     stroke-width: 1.5px;
