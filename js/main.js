@@ -1,4 +1,4 @@
-var svg = d3.select("svg"),
+var svg = d3.select("svg.vessels"),
     margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = svg.attr("width") - 160 - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom,
