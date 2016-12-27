@@ -7,3 +7,13 @@
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
+.regions .axis--x path {
+    display: none;
+}
+
+.regions .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
