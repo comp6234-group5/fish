@@ -1,2 +1,3 @@
 createVesselGraph();
 createRegionGraph();
+createBalanceGraph();
