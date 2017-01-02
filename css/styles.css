@@ -19,3 +19,12 @@ path {
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
+.center-text {
+    text-align: center;
+}
+
+.center-graph {
+    display: block;
+    margin: auto;
+}
