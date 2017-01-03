@@ -1,6 +1,6 @@
 //Shows the Balance of Payments between Imports and Exports (AKA trade deficit) and the value of the GBP against the USD, during 2008-2016.
 var createBalanceGraph = function () {
-    //Based on http://bl.ocks.org/d3noob/e34791a32a54e015f57d
+    //Dual axis based on http://bl.ocks.org/d3noob/e34791a32a54e015f57d
     var margin = {top: 30, right: 40, bottom: 30, left: 50},
         width = 900 - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
@@ -32,6 +32,7 @@ var createBalanceGraph = function () {
         .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
+            .attr("class", "balanceOfPay")
         .append("g")
             .attr("transform", 
                   "translate(" + margin.left + "," + margin.top + ")");
@@ -49,7 +50,7 @@ var createBalanceGraph = function () {
         // Scale the range of the data
         x.domain(d3.extent(data, function(d) { return d.date; }));
         y0.domain([0, d3.min(data, function(d) {
-    		return Math.min(d.euBalance); }) - 2000]); //Some amount of padding. TODO take into acound the noneuBalance here
+    		return Math.min(d.euBalance); }) - 4000]); //Some amount of padding. TODO take into acound the noneuBalance here?
         y1.domain([0.8, 2.2]);
 
         svg.append("path")        // Add the lineEUBalance line.
@@ -89,9 +90,108 @@ var createBalanceGraph = function () {
             .attr("y", 10)
             .attr("x", -65)
             .attr("font-weight", "bold")
-            //.attr("dy", "0.71em")
+            .attr("dy", "0.71em")
             .attr("fill", "red")
             .text("GBP per USD");
 
+        //Mouseover text box
+        var msgBox = svg.append("g")
+            .attr("class", "msgBox")
+            .style("display", "none");
+
+        var txt = msgBox.append("text")
+            .attr("y",  height*0.6)
+            .attr("dy", ".35em");
+        //These tspans are like this to be able to have multiline messages.
+        var noOfLines = 10;
+        for (var i = 0; i < noOfLines; i++){
+            txt.append("tspan")     
+            .attr("id", "mline"+i)
+            .attr("x", 12)
+            .attr("dy", "1.2em");
+        }
+
+        //Add highlight zones
+        var startDate = parseDate("01/06/2008"),
+            endDate = parseDate("01/09/2009");
+        var extraYMargin = 6;
+        var mOutColor = "#C0C0C032",
+            mOverColor = "#A0A0A072";
+        var highlight1 = svg.append('rect')
+                .attr("id", "highlight1")
+                .attr('x', x(startDate))
+                .attr('y', 0 + extraYMargin)
+                .attr('width', x(endDate) - x(startDate))
+                .attr('height', height - extraYMargin)
+                .attr("fill", mOutColor)
+                .on("mouseover", function(){ mOverFunction(highlight1, text1);})
+                .on("mouseout", function(){ mOutFunction(highlight1);});
+        //Highlight 2
+        startDate = parseDate("01/01/2014");
+        endDate = parseDate("01/03/2016");
+        var highlight2 = svg.append('rect')
+                .attr('x', x(startDate))
+                .attr('y', 0 + extraYMargin)
+                .attr('width', x(endDate) - x(startDate))
+                .attr('height', height - extraYMargin)
+                .attr("fill", mOutColor)
+                .on("mouseover", function(){ mOverFunction(highlight2, text2);})
+                .on("mouseout", function(){ mOutFunction(highlight2);});
+        //Highlight 3
+        startDate = parseDate("23/06/2016");
+        endDate = parseDate("01/10/2016");
+        var highlight3 = svg.append('rect')
+                .attr('x', x(startDate))
+                .attr('y', 0 + extraYMargin)
+                .attr('width', x(endDate) - x(startDate))
+                .attr('height', height - extraYMargin)
+                .attr("fill", mOutColor)
+                .on("mouseover", function(){ mOverFunction(highlight3, text3);})
+                .on("mouseout", function(){ mOutFunction(highlight3);});
+        
+        //Conclusion text
+        //TODO text4
+
+        function mOverFunction(highlightZone, textToDisplay){
+            msgBox.style("display", null);
+            setMsg(textToDisplay);
+            highlightZone.attr("fill", mOverColor);
+            d3.select("#highlight1").transition().attr("height", height*0.6 - extraYMargin);
+        };
+        function mOutFunction(highlightZone){
+            msgBox.style("display", "none"); 
+            highlightZone.attr("fill", mOutColor)
+            d3.select("#highlight1").transition().attr("height", height - extraYMargin)
+        };
+
+        function setMsg(stringArray){
+            var txt = msgBox.select("text");
+            for (var i = 0; i < noOfLines; i++) {
+                if (i < stringArray.length){
+                    d3.select("#mline"+i).text(stringArray[i]);
+                } else {
+                    d3.select("#mline"+i).text("");
+                }
+            }
+        }
+
     });
+    
+    //Accompanying Text
+    var text1 = ["Global financial crisis of 2008", 
+        "Despite the value of the pound falling, trade balance improved within EU trade.",
+        "This, unlike in 2016, happened due to the global nature of the event."];
+    var text2 = ["From 2014 onwards",
+        "The changes in the value of the pound are followed (with some delay)",
+        "by matching fluctuations in the EU imbalance, showcasing their close relationship.",
+        "Meanwhile, the non-EU balance fluctuates independently of the sterling."];
+    var text3 = ["Referendum 2016 and beyond",
+        "As the value of the sterling fell, the imbalance of payments widened.",
+        "Most notably, however, it was the non-EU imbalance that worsened dramatically.",
+        "Why is that? Since importing is more costly to do outside the EU Single Market a fall in the",
+        "pound affects these imports harder. Their cost increases more dramatically and although ",
+        "exporting becomes more profitable both inside and outside the single market, the UK’s goods",
+        "exporting is far overshadowed by its goods importing. Tade deficit is increasing, but mostly due to non-EU imports."];
+    var text4 = ["Now consider how much greater the deficit would be if all imports were non-EU imports, ",
+        "as they would be if the UK loses access to the Single Market."];
 };
