@@ -111,19 +111,28 @@ var createBalanceGraph = function () {
             .attr("dy", "1.2em");
         }
 
-        //Add highlight zones
+        //Add highlight zones (unsightly code repetition ahead)
         var startDate = parseDate("01/06/2008"),
             endDate = parseDate("01/09/2009");
         var extraYMargin = 6;
         var mOutColor = "#C0C0C032",
             mOverColor = "#A0A0A072";
+        mOutColor = 
+        //Highlight 1 requires an additional transparent zone to detect mouse events on its belahf so that the chaning of its size
+        //doesn't trigger mouse events (which would cause a sequence of events).
         var highlight1 = svg.append('rect')
                 .attr("id", "highlight1")
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
                 .attr('height', height - extraYMargin)
-                .attr("fill", mOutColor)
+                .attr("fill", mOutColor);
+        var hl1Area = svg.append('rect')
+                .attr('x', x(startDate))
+                .attr('y', 0 + extraYMargin)
+                .attr('width', x(endDate) - x(startDate))
+                .attr('height', height - extraYMargin)
+                .attr("fill", "#C0C0C000")
                 .on("mouseover", function(){ mOverFunction(highlight1, text1);})
                 .on("mouseout", function(){ mOutFunction(highlight1);});
         //Highlight 2
@@ -156,12 +165,12 @@ var createBalanceGraph = function () {
             msgBox.style("display", null);
             setMsg(textToDisplay);
             highlightZone.attr("fill", mOverColor);
-            d3.select("#highlight1").transition().attr("height", height*0.6 - extraYMargin);
+            highlight1.transition().attr("height", height*0.6 - extraYMargin);
         };
         function mOutFunction(highlightZone){
             msgBox.style("display", "none"); 
             highlightZone.attr("fill", mOutColor)
-            d3.select("#highlight1").transition().attr("height", height - extraYMargin)
+            highlight1.transition().attr("height", height - extraYMargin)
         };
 
         function setMsg(stringArray){
