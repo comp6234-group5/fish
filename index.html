@@ -3,11 +3,36 @@
 <head>
     <meta charset="utf-8">
     <title>Fish</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="node_modules/d3/build/d3.js"></script>
 </head>
 <body>
-    <svg width="960" height="400" class="vessels"></svg>
+    <h2 class="center-text">Brexit and the Effect on the British Fishing Industry</h2>
+    <div class="row">
+        <h4 class="center-text">
+            Overview of Landings into the UK by UK Vessels vs Foreign Vessels and Landings Abroad by UK Vessels
+        </h4>
+        <p class="col-md-10 col-md-offset-1">
+            When looking at the data of UK landings by UK vessels, UK landings by foreign vessels and foreign landings by
+            UK vessels, we can see that right after the EU referendum there was a sudden spike in landings in all three categories
+            followed by a steep descent in August and September. This decline in landings happens a little bit earlier compared
+            to the previous two years, when the October seems to be the peak month of the year. The decline in UK landings by
+            foreign vessels is especially significant as it hits its lowest value in nearly two years. It will be interesting
+            to see if the negative trend will continue for the next months or if the landings will pick up like they have
+            done in the early months of the previous two years. Will foreign vessels continue to land fish in UK ports or
+            will they withdraw in numbers as a result of the UK’s decision to leave the EU?
+        </p>
+        <p class="col-md-10 col-md-offset-1">
+            Also of interest is the distribution of the three categories. The landings (quantity in tonnes) in the UK by UK
+            vessels is by far greater than the UK landings by foreign vessels. This indicates that the UK does actually have a lot
+            of control of their waters in terms of landings. Even more, landings abroad by UK landings is significantly
+            higher than UK landings by foreign vessels. It will be interesting to see whether other countries such as France
+            and Denmark will impose restrictions on how much UK vessels can fish and sell in their ports as a result of the
+            referendum.
+        </p>
+    </div>
+    <svg width="960" height="400" class="vessels center-graph"></svg>
     <svg width="960" height="400" class="regions"></svg>
     <script src="js/BalanceOfPay+GBP.js"></script>
     <script src="js/vessels.js"></script>

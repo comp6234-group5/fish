@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/comp6234-group5/fish#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "d3": "^4.4.0"
   },
   "devDependencies": {
