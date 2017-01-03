@@ -76,8 +76,9 @@ var createBalanceGraph = function () {
             .call(yAxisLeft)
             .append("text")
             .attr("y", 10)
-            .attr("x", 140)
+            .attr("x", 150)
             .attr("dy", "0.71em")
+            .attr("font-weight", "bold")
             .attr("fill", "#000")
             .text("Balance of Trade (Millions of £)");
 
@@ -89,8 +90,8 @@ var createBalanceGraph = function () {
             .append("text")
             .attr("y", 10)
             .attr("x", -65)
-            .attr("font-weight", "bold")
             .attr("dy", "0.71em")
+            .attr("font-weight", "bold")
             .attr("fill", "red")
             .text("GBP per USD");
 
@@ -115,9 +116,6 @@ var createBalanceGraph = function () {
         var startDate = parseDate("01/06/2008"),
             endDate = parseDate("01/09/2009");
         var extraYMargin = 6;
-        var mOutColor = "#C0C0C032",
-            mOverColor = "#A0A0A072";
-        mOutColor = 
         //Highlight 1 requires an additional transparent zone to detect mouse events on its belahf so that the chaning of its size
         //doesn't trigger mouse events (which would cause a sequence of events).
         var highlight1 = svg.append('rect')
@@ -125,13 +123,13 @@ var createBalanceGraph = function () {
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
-                .attr('height', height - extraYMargin)
+                .attr('height', height )
                 .attr("fill", mOutColor);
         var hl1Area = svg.append('rect')
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
-                .attr('height', height - extraYMargin)
+                .attr('height', height )
                 .attr("fill", "#C0C0C000")
                 .on("mouseover", function(){ mOverFunction(highlight1, text1);})
                 .on("mouseout", function(){ mOutFunction(highlight1);});
@@ -142,7 +140,7 @@ var createBalanceGraph = function () {
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
-                .attr('height', height - extraYMargin)
+                .attr('height', height)
                 .attr("fill", mOutColor)
                 .on("mouseover", function(){ mOverFunction(highlight2, text2);})
                 .on("mouseout", function(){ mOutFunction(highlight2);});
@@ -153,7 +151,7 @@ var createBalanceGraph = function () {
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
-                .attr('height', height - extraYMargin)
+                .attr('height', height)
                 .attr("fill", mOutColor)
                 .on("mouseover", function(){ mOverFunction(highlight3, text3);})
                 .on("mouseout", function(){ mOutFunction(highlight3);});
@@ -165,12 +163,12 @@ var createBalanceGraph = function () {
             msgBox.style("display", null);
             setMsg(textToDisplay);
             highlightZone.attr("fill", mOverColor);
-            highlight1.transition().attr("height", height*0.6 - extraYMargin);
+            //highlight1.transition().attr("height", height*0.6 - extraYMargin);
         };
         function mOutFunction(highlightZone){
             msgBox.style("display", "none"); 
             highlightZone.attr("fill", mOutColor)
-            highlight1.transition().attr("height", height - extraYMargin)
+            //highlight1.transition().duration(1000).attr("height", height - extraYMargin)
         };
 
         function setMsg(stringArray){
@@ -185,8 +183,56 @@ var createBalanceGraph = function () {
         }
 
     });
+
+    //Colors and opacity gradient for highlight zones
+    var highlightColorBase = "#B7B7B73C",
+        mOutColor = "url(#gradient1)",
+        mOverColor = "url(#gradient2)";
+
+    var gradient = svg.append("defs").append("linearGradient")
+       .attr("id", "gradient1")
+       .attr("x1", "0%")
+       .attr("y1", "0%")
+       .attr("x2", "0%")
+       .attr("y2", "100%");
+    gradient.append("stop")
+       .attr("offset", "0%")
+       .attr("stop-color", highlightColorBase)
+       .attr("stop-opacity", 1);
+    gradient.append("stop")
+       .attr("offset", "0%")
+       .attr("stop-color", "#E5E5E53C")
+       .attr("stop-opacity", 0.25);
+    gradient.append("stop")
+       .attr("offset", "70%")
+       .attr("stop-color", "#E5E5E53C")
+       .attr("stop-opacity", 0);
+    gradient.append("stop")
+       .attr("offset", "100%")
+       .attr("stop-color", highlightColorBase)
+       .attr("stop-opacity", 1);
+
+    var gradient = svg.append("defs").append("linearGradient")
+       .attr("id", "gradient2")
+       .attr("x1", "0%")
+       .attr("y1", "0%")
+       .attr("x2", "0%")
+       .attr("y2", "100%");
+    gradient.append("stop")
+       .attr("offset", "0%")
+       .attr("stop-color", highlightColorBase)
+       .attr("stop-opacity", 1);
+    gradient.append("stop")
+       .attr("offset", "50%")
+       .attr("stop-color", "#FFFFFF00")
+       .attr("stop-opacity", 0);
+    gradient.append("stop")
+       .attr("offset", "100%")
+       .attr("stop-color", highlightColorBase)
+       .attr("stop-opacity", 1);
     
     //Accompanying Text
+    var title = "Balance of Payments in Goods, the EU and the pound (think of a better title?)"
     var text1 = ["Global financial crisis of 2008", 
         "Despite the value of the pound falling, trade balance improved within EU trade.",
         "This, unlike in 2016, happened due to the global nature of the event."];
