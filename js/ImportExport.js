@@ -3,10 +3,13 @@ var createImportExportGraphs = function () {
     //Here are specified 2 graphs, G1 and G2.
     var svg1 = d3.select("svg.importExport1"),
         svg2 = d3.select("svg.importExport2"),
-        margin = {top: 20, right: 80, bottom: 30, left: 50},
+        margin = {top: 20, right: 10, bottom: 30, left: 100},
         width = svg1.attr("width") - 160 - margin.left - margin.right,
         height = svg1.attr("height") - margin.top - margin.bottom,
         g1 = svg1.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    //Radio Button Listener
+    d3.selectAll('input[name="industry"]').on("click", onRBClick);
 
     //Scales G2
     /*var x = d3.scale.ordinal()
@@ -14,6 +17,9 @@ var createImportExportGraphs = function () {
 
     var y = d3.scale.linear()
         .range([height, 0]);*/
+
+    var mData;
+    var xG1, yG1;
 
     //Data loading
     d3.csv("data/DeficitAcrossIndustry.csv", function(error, data) {
@@ -25,15 +31,14 @@ var createImportExportGraphs = function () {
             d.exp = +d.Exports;
         });
 
+        mData = data;
+
         setUpG1();
-        drawG1(data, "Goods and Services", 0);
-        drawG1(data, "Goods", 800);
-        //drawG1(data, "Food, Brevages and Tobacco", 800);
-        //drawG1(data, "Fish", 1000);
+        drawG1("Goods and Services", 0);
+        //drawG1("Food, Brevages and Tobacco", 800);
+        //drawG1("Fish", 1000);
         //drawG2(data);
     });
-
-    var xG1, yG1;
 
     function setUpG1(){
         //Scales
@@ -49,11 +54,15 @@ var createImportExportGraphs = function () {
         //
         g1.append("g")
           .attr("class", "g1Axis y")
-        .append("text")
+        /*.append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
-          .attr("dy", ".71em")
           .style("text-anchor", "end")
+          .text("Value in Millions of £");*///Doesn't work dont know why
+        g1.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -60)
+          .attr("x", -160)
           .text("Value in Millions of £");
 
         //Add Bars, will be filled with data on draw.
@@ -73,23 +82,24 @@ var createImportExportGraphs = function () {
     }
 
     //Takes in the selected industry as a string. Must be the same string as in the csv file.
-    function drawG1(data, selectedIndustry, animationTime){
+    function drawG1(selectedIndustry, animationTime){
         //Prepare data
         var selectedData; 
-        for (var i = 0; i < data.length; i++){
-            if (data[i].industry === selectedIndustry){
-                selectedData = data[i];
+        for (var i = 0; i < mData.length; i++){
+            if (mData[i].industry === selectedIndustry){
+                selectedData = mData[i];
                 break;
             }
         };
         if (!selectedData){
-            console.log("Prepared data was: "+selectedData);
+            console.log("Selected data was: "+selectedData);
             return; 
         }
 
         //Refresh the axes, making them change if necessary.
-        xG1.domain(["Imports", "Exports"]);
-        yG1.domain([0, Math.max(selectedData.imp, selectedData.exp)]);
+        xG1.domain(["Imports", "Exports"]).padding(0.3);
+        var yMax = Math.max(selectedData.imp, selectedData.exp);
+        yG1.domain([0, yMax*1.1]);//Aesthetic, want import bar to remain static when data changes.
         //Axes
         var xAxis = d3.axisBottom().scale(xG1);
         var yAxis = d3.axisLeft().scale(yG1);
@@ -112,5 +122,11 @@ var createImportExportGraphs = function () {
           .attr("width", xG1.bandwidth())
           .attr("y", function() { return yG1(selectedData.exp); })
           .attr("height", function() { return height - yG1(selectedData.exp); });
+    }
+
+    function onRBClick(){
+        //This will redraw the G1 bar chart depending on the selected industry.
+        var selection = d3.select('input[name = "industry"]:checked').node().value;
+        drawG1(selection, 800);
     }
 };
