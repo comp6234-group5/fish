@@ -1,3 +1,4 @@
 createVesselGraph();
 createRegionGraph();
+createImportExportGraphs();
 createBalanceGraph();
