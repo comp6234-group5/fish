@@ -116,23 +116,17 @@ var createBalanceGraph = function () {
         var startDate = parseDate("01/06/2008"),
             endDate = parseDate("01/09/2009");
         var extraYMargin = 6;
-        //Highlight 1 requires an additional transparent zone to detect mouse events on its belahf so that the chaning of its size
-        //doesn't trigger mouse events (which would cause a sequence of events).
+        //Highlight 1
         var highlight1 = svg.append('rect')
                 .attr("id", "highlight1")
                 .attr('x', x(startDate))
                 .attr('y', 0 + extraYMargin)
                 .attr('width', x(endDate) - x(startDate))
                 .attr('height', height )
-                .attr("fill", mOutColor);
-        var hl1Area = svg.append('rect')
-                .attr('x', x(startDate))
-                .attr('y', 0 + extraYMargin)
-                .attr('width', x(endDate) - x(startDate))
-                .attr('height', height )
-                .attr("fill", "#C0C0C000")
+                .attr("fill", mOutColor)
                 .on("mouseover", function(){ mOverFunction(highlight1, text1);})
                 .on("mouseout", function(){ mOutFunction(highlight1);});
+        
         //Highlight 2
         startDate = parseDate("01/01/2014");
         endDate = parseDate("01/03/2016");
@@ -185,11 +179,12 @@ var createBalanceGraph = function () {
     });
 
     //Colors and opacity gradient for highlight zones
-    var highlightColorBase = "#B7B7B73C",
+    var highlightColorBase = "#B7B7B7",
         mOutColor = "url(#gradient1)",
         mOverColor = "url(#gradient2)";
 
-    var gradient = svg.append("defs").append("linearGradient")
+    var defs = svg.append("defs");
+    var gradient = defs.append("linearGradient")
        .attr("id", "gradient1")
        .attr("x1", "0%")
        .attr("y1", "0%")
@@ -197,22 +192,18 @@ var createBalanceGraph = function () {
        .attr("y2", "100%");
     gradient.append("stop")
        .attr("offset", "0%")
-       .attr("stop-color", highlightColorBase)
-       .attr("stop-opacity", 1);
-    gradient.append("stop")
-       .attr("offset", "0%")
-       .attr("stop-color", "#E5E5E53C")
-       .attr("stop-opacity", 0.25);
+       .attr("stop-color", "#E5E5E5")
+       .attr("stop-opacity", 0.25*0.2353);
     gradient.append("stop")
        .attr("offset", "70%")
-       .attr("stop-color", "#E5E5E53C")
+       .attr("stop-color", "#E5E5E5")
        .attr("stop-opacity", 0);
     gradient.append("stop")
        .attr("offset", "100%")
        .attr("stop-color", highlightColorBase)
-       .attr("stop-opacity", 1);
+       .attr("stop-opacity", 0.2353);
 
-    var gradient = svg.append("defs").append("linearGradient")
+    var gradient = defs.append("linearGradient")
        .attr("id", "gradient2")
        .attr("x1", "0%")
        .attr("y1", "0%")
@@ -221,15 +212,15 @@ var createBalanceGraph = function () {
     gradient.append("stop")
        .attr("offset", "0%")
        .attr("stop-color", highlightColorBase)
-       .attr("stop-opacity", 1);
+       .attr("stop-opacity", 0.2353*0.5);
     gradient.append("stop")
        .attr("offset", "50%")
-       .attr("stop-color", "#FFFFFF00")
+       .attr("stop-color", "#FFFFFF")
        .attr("stop-opacity", 0);
     gradient.append("stop")
        .attr("offset", "100%")
        .attr("stop-color", highlightColorBase)
-       .attr("stop-opacity", 1);
+       .attr("stop-opacity", 0.2353*0.5);
     
     //Accompanying Text
     var title = "Balance of Payments in Goods, the EU and the pound (think of a better title?)"
