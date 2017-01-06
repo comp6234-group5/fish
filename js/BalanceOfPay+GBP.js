@@ -1,9 +1,11 @@
 //Shows the Balance of Payments between Imports and Exports (AKA trade deficit) and the value of the GBP against the USD, during 2008-2016.
 var createBalanceGraph = function () {
     //Dual axis based on http://bl.ocks.org/d3noob/e34791a32a54e015f57d
-    var margin = {top: 30, right: 40, bottom: 30, left: 50},
-        width = 900 - margin.left - margin.right,
-        height = 470 - margin.top - margin.bottom;
+    var svg = d3.select("svg.balanceOfPay"),
+        margin = {top: 10, right: 40, bottom: 30, left: 50},
+        width = svg.attr("width") - margin.left - margin.right,
+        height = svg.attr("height") - margin.top - margin.bottom;
+    svg = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var parseDate = d3.timeParse("%d/%m/%Y");
 
@@ -27,15 +29,6 @@ var createBalanceGraph = function () {
     var lineGBP = d3.line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y1(d.GBPperUSD); });
-      
-    var svg = d3.select("body")
-        .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .attr("class", "balanceOfPay")
-        .append("g")
-            .attr("transform", 
-                  "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
     d3.csv("data/BalanceOfPayment_Goods_and_GBP_Value.csv", function(error, data) {
@@ -231,7 +224,7 @@ var createBalanceGraph = function () {
         "The changes in the value of the pound are followed (with some delay)",
         "by matching fluctuations in the EU imbalance, showcasing their close relationship.",
         "Meanwhile, the non-EU balance fluctuates independently of the sterling."];
-    var text3 = ["Referendum 2016 and beyond",
+    var text3 = ["Referendum - 23 June 2016 and beyond",
         "As the value of the sterling fell, the imbalance of payments widened.",
         "Most notably, however, it was the non-EU imbalance that worsened dramatically.",
         "Why is that? Since importing is more costly to do outside the EU Single Market a fall in the",

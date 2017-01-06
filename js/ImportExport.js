@@ -2,7 +2,7 @@ var createImportExportGraphs = function () {
     //Reference, especially for G2 - https://bl.ocks.org/RandomEtc/cff3610e7dd47bef2d01
     //Here are specified 2 graphs, G1 and G2.
     var svg1 = d3.select("svg.importExport1"),
-        margin = {top: 50, right: 10, bottom: 30, left: 100},   //height and margins are the same for both.
+        margin = {top: 30, right: 10, bottom: 30, left: 100},   //height and margins are the same for both.
         height = svg1.attr("height") - margin.top - margin.bottom,
         g1 = svg1.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -145,7 +145,7 @@ var createImportExportGraphs = function () {
 
         //Add title
         g2.append("text") 
-            .attr("x", 100)
+            .attr("x", 60)
             .attr("y", -20)
             .attr("dy", ".71em")
             .text("The value of imports is X% larger than that of exports");
@@ -177,7 +177,6 @@ var createImportExportGraphs = function () {
         g2.select(".g2Axis.x").transition().duration(300).call(xAxis);
         g2.select(".g2Axis.y").transition().duration(300).call(yAxis)
 
-        console.log(data);
         //This is the actual work. (data) is an array/iterable thing, second argument is an ID generator function
         var bars = g2.selectAll(".bar").data(data, function(d) { return d.industry; })     
 
@@ -203,8 +202,6 @@ var createImportExportGraphs = function () {
             .attr("x", function(d) { return xG2(d.industry); })
             .attr("width", xG2.bandwidth())
             .attr("y", function(d) { return yG2(d.percntDff); })
-            .attr("height", function(d) { 
-                console.log(yG2(d.percntDff));
-                return height - yG2(d.percntDff); });
+            .attr("height", function(d) { return height - yG2(d.percntDff); });
     }
 };

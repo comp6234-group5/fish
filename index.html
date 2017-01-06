@@ -34,15 +34,41 @@
     </div>
     <svg width="960" height="400" class="vessels center-graph"></svg>
     <svg width="960" height="400" class="regions"></svg>
-    <div class="row">
-    	<svg class="importExport1 col-md-3" width="500" height="300"></svg>
-    	<div class="industryRadioBttns col-md-2">
-			<input type="radio" name="industry" value="Goods and Services" checked="checked"> Goods and Services<br>
-			<input type="radio" name="industry" value="Goods"> Goods Trade Only<br>
-			<input type="radio" name="industry" value="Fish"> Fish Trade Only
-    	</div>
-    	<svg class="importExport2" width="800" height="300"></svg>
-    </div>
+    <span class"import-export-GBP-section">
+	    <div class="row">
+	    	<h3 class="center-text">International Trade</h3>
+	    	<p class="col-md-10 col-md-offset-1">
+	    		Considering all industries, the UK imports more than it exports and, as s result, it maintains a negative balance of payments a.k.a. a trade deficit. In the context of both a cheaper pound sterling and the re-introduction of duty charges in European trade, exporting could still become more profitable but would this outweigh the costs of more expensive importing? Is the trade deficit getting any smaller?
+	    	</p>
+	    	<svg class="importExport1 col-md-3 col-md-offset-1" width="500" height="300"></svg>
+	    	<div class="col-md-2">
+	    		<p>
+	    			How much greater is expenditure in imports than profit from exports? Is the fishing industry one which benefits from exporting more than it spends on importing?
+	    		</p>
+				<input type="radio" name="industry" value="Goods and Services" checked="checked"> Goods and Services<br>
+				<input type="radio" name="industry" value="Goods"> Goods Trade Only<br>
+				<input type="radio" name="industry" value="Fish"> Fish Trade Only
+				<p>Andres, to do: Make the bars on right graph appear when these are clicked.</p>
+	    	</div>
+	    	<svg class="importExport2 col-md-5" width="760" height="300"></svg>
+	    </div>
+	    <div class="row">
+		    <p class="col-md-10 col-md-offset-1">
+		    	As can be seen, the deficit is relatively larger in the trade of fish, meaning it woudl be particularly hurt by the reintroduction of duty fees as they are outside the European Single Market. 
+		    </p>
+	    </div>
+	    <br>
+	    <div class="row">
+		    <h4 class="center-text">Balance of Payments in Goods and the Brexit Referendum</h4>
+		    <p class="col-md-5 col-md-offset-1">
+		    	For already visible consequences, the graph below shows how the referendum may have affected this trade deficit through its impact on the the value of the sterling.
+		    </p>
+		    <svg class="balanceOfPay center-graph" width="900" height="470"></svg>
+		    <p class="col-md-10 col-md-offset-1">
+		    	Explore the effects of the referendum. Now, consider how much greater the deficit would be if all imports were non-EU imports, as they would be if the UK loses access to the Single Market.
+	        </p>
+	    </div>
+    </span>
     <script src="js/ImportExport.js"></script>
     <script src="js/BalanceOfPay+GBP.js"></script>
     <script src="js/vessels.js"></script>
