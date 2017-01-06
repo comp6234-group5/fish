@@ -20,6 +20,10 @@ path {
     stroke-width: 1.5px;
 }
 
+.bar {
+    fill: thistle;
+}
+
 .center-text {
     text-align: center;
 }
