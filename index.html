@@ -32,22 +32,37 @@
             referendum.
         </p>
     </div>
+
     <svg width="960" height="400" class="vessels center-graph"></svg>
-    <svg width="960" height="400" class="regions"></svg>
-    <div class="row">
-    	<svg class="importExport1 col-md-3" width="500" height="280"></svg>
-    	<div class="industryRadioBttns col-md-2">
-			<input type="radio" name="industry" value="Goods and Services"> Goods and Services<br>
-			<input type="radio" name="industry" value="Goods"> Goods Trade Only<br>
-			<input type="radio" name="industry" value="Fish"> Fish Trade Only
+    <svg width="960" height="400" class="regions center-graph"></svg>
+
+    <div class="row center-text">
+    	<svg class="importExport1 center-graph" width="500" height="280" class="center-graph"></svg>
+    	<div class="industryRadioBttns">
+          <input type="radio" name="industry" value="Goods and Services" checked="checked"> Goods and Services<br>
+          <input type="radio" name="industry" value="Goods"> Goods Trade Only<br>
+          <input type="radio" name="industry" value="Fish"> Fish Trade Only
     	</div>
-    	<svg class="importExport2" width="550" height="280"></svg>
+    	<svg class="importExport2 center-graph" width="550" height="280" class="center-graph"></svg>
     </div>
+
+    <div class="row center-text">
+      <svg width="960" height="400" id="balance" class="balanceOfPay center-graph"></svg>
+      <svg width="960" height="400" class="center-graph"></svg>
+    </div>
+
+    <div class="row center-text">
+      <svg width="960" height="400" id="stocks" class="center-graph"></svg>
+      <svg width="960" height="400" id="prices" class="center-graph"></svg>
+    </div>
+
     <script src="js/ImportExport.js"></script>
     <script src="js/BalanceOfPay+GBP.js"></script>
     <script src="js/vessels.js"></script>
     <script src="js/regions.js"></script>
+    <script src="js/fish_prices.js"></script>
+    <script src="js/stocks.js"></script>
     <script src="js/main.js"></script>
-    
+
 </body>
 </html>
