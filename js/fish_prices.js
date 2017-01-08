@@ -49,7 +49,7 @@ var createPricesGraph = function () {
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("fill", "#000")
-      .text("Price/kg, (£)");
+      .text("Price (£/kg)");
 
     var price = g.selectAll(".price")
       .data(fish_prices)
