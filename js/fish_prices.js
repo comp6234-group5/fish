@@ -1,14 +1,14 @@
 var createPricesGraph = function () {
   var parseTime = d3.timeParse("%d/%m/%y");
   var svg = d3.select("svg#prices"),
-  margin = {top: 20, right: 80, bottom: 30, left: 50},
-  width = svg.attr("width") - margin.left - margin.right,
-  height = svg.attr("height") - margin.top - margin.bottom,
-  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      margin = {top: 20, right: 80, bottom: 30, left: 50},
+      width = svg.attr("width") - margin.left - margin.right,
+      height = svg.attr("height") - margin.top - margin.bottom,
+      g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var x = d3.scaleTime().range([0, width]),
-  y = d3.scaleLinear().range([height, 0]),
-  z = d3.scaleOrdinal(d3.schemeCategory10);
+      y = d3.scaleLinear().range([height, 0]),
+      z = d3.scaleOrdinal(d3.schemeCategory10);
 
   var line = d3.line()
     .curve(d3.curveBasis)
@@ -72,9 +72,9 @@ var createPricesGraph = function () {
     // line for referendum date
     var refDate = new Date(2016, 05, 23);  // june 23rd
     svg.append("line")
-      .attr("x1", x(refDate))
+      .attr("x1", x(refDate) + margin.left)
       .attr("y1", margin.top)
-      .attr("x2", x(refDate))
+      .attr("x2", x(refDate) + margin.left)
       .attr("y2", height + margin.top)
       .style("stroke-width", 2)
       .style("stroke", "red")
