@@ -2,7 +2,7 @@
 var createBalanceGraph = function () {
     //Dual axis based on http://bl.ocks.org/d3noob/e34791a32a54e015f57d
     var svg = d3.select("svg.balanceOfPay"),
-        margin = {top: 10, right: 40, bottom: 30, left: 50},
+        margin = {top: 10, right: 240, bottom: 30, left: 65},
         width = svg.attr("width") - margin.left - margin.right,
         height = svg.attr("height") - margin.top - margin.bottom;
     svg = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -30,6 +30,11 @@ var createBalanceGraph = function () {
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y1(d.GBPperUSD); });
 
+    //Colors
+    var colorEU = "blue",
+        colorNoEU = "orange",
+        colorGBP = "red";
+
     // Get the data
     d3.csv("data/BalanceOfPayment_Goods_and_GBP_Value.csv", function(error, data) {
 
@@ -47,16 +52,16 @@ var createBalanceGraph = function () {
         y1.domain([0.8, 2.2]);
 
         svg.append("path")        // Add the lineEUBalance line.
-            .style("stroke", "blue")
+            .style("stroke", colorEU)
             .attr("d", lineEUBalance(data));
 
         svg.append("path")        // Add the lineNoEUBalance line.
-            .style("stroke", "orange")
+            .style("stroke", colorNoEU)
             .style("fill", "none")
             .attr("d", lineNoEUBalance(data));
 
         svg.append("path")        // Add the lineGBP line.
-            .style("stroke", "red")
+            .style("stroke", colorGBP)
             .attr("d", lineGBP(data));
 
         //--Axis adding
@@ -68,25 +73,26 @@ var createBalanceGraph = function () {
         svg.append("g")             
             .call(yAxisLeft)
             .append("text")
-            .attr("y", 10)
-            .attr("x", 150)
+            .attr("y", -60)
+            .attr("x", -height/2 +90)
             .attr("dy", "0.71em")
-            .attr("font-weight", "bold")
-            .attr("fill", "#000")
+            .attr("font-size", "12px")
+            .attr("fill", "black")
+            .attr("transform", "rotate(-90)")
             .text("Balance of Trade (Millions of £)");
 
         //Add Right axis, number of GBP per USD
         svg.append("g")
             .attr("transform", "translate(" + width + " ,0)")	
-            .style("fill", "red")
             .call(yAxisRight)
             .append("text")
-            .attr("y", 10)
-            .attr("x", -65)
+            .attr("y", -40)
+            .attr("x", height/2 -40)
             .attr("dy", "0.71em")
-            .attr("font-weight", "bold")
-            .attr("fill", "red")
-            .text("GBP per USD");
+            .attr("font-size", "12px")
+            .attr("fill", "black")
+            .attr("transform", "rotate(90)")
+            .text("£ per US Dollar");
 
         //Mouseover text box
         var msgBox = svg.append("g")
@@ -99,10 +105,13 @@ var createBalanceGraph = function () {
         //These tspans are like this to be able to have multiline messages.
         var noOfLines = 10;
         for (var i = 0; i < noOfLines; i++){
-            txt.append("tspan")     
-            .attr("id", "mline"+i)
-            .attr("x", 12)
-            .attr("dy", "1.2em");
+            t = txt.append("tspan")     
+                .attr("id", "mline"+i)
+                .attr("x", 12)
+                .attr("dy", "1.2em");
+            if (i === 0){
+                t.attr("font-weight", "bold");
+            }
         }
 
         //Add highlight zones (unsightly code repetition ahead)
@@ -111,40 +120,37 @@ var createBalanceGraph = function () {
         var extraYMargin = 6;
         //Highlight 1
         var highlight1 = svg.append('rect')
-                .attr("id", "highlight1")
-                .attr('x', x(startDate))
-                .attr('y', 0 + extraYMargin)
-                .attr('width', x(endDate) - x(startDate))
-                .attr('height', height )
-                .attr("fill", mOutColor)
-                .on("mouseover", function(){ mOverFunction(highlight1, text1);})
-                .on("mouseout", function(){ mOutFunction(highlight1);});
-        
+            .attr("id", "highlight1")
+            .attr('x', x(startDate))
+            .attr('y', 0 + extraYMargin)
+            .attr('width', x(endDate) - x(startDate))
+            .attr('height', height )
+            .attr("fill", mOutColor)
+            .on("mouseover", function(){ mOverFunction(highlight1, text1);})
+            .on("mouseout", function(){ mOutFunction(highlight1);});
+    
         //Highlight 2
         startDate = parseDate("01/01/2014");
         endDate = parseDate("01/03/2016");
         var highlight2 = svg.append('rect')
-                .attr('x', x(startDate))
-                .attr('y', 0 + extraYMargin)
-                .attr('width', x(endDate) - x(startDate))
-                .attr('height', height)
-                .attr("fill", mOutColor)
-                .on("mouseover", function(){ mOverFunction(highlight2, text2);})
-                .on("mouseout", function(){ mOutFunction(highlight2);});
+            .attr('x', x(startDate))
+            .attr('y', 0 + extraYMargin)
+            .attr('width', x(endDate) - x(startDate))
+            .attr('height', height)
+            .attr("fill", mOutColor)
+            .on("mouseover", function(){ mOverFunction(highlight2, text2);})
+            .on("mouseout", function(){ mOutFunction(highlight2);});
         //Highlight 3
         startDate = parseDate("23/06/2016");
         endDate = parseDate("01/10/2016");
         var highlight3 = svg.append('rect')
-                .attr('x', x(startDate))
-                .attr('y', 0 + extraYMargin)
-                .attr('width', x(endDate) - x(startDate))
-                .attr('height', height)
-                .attr("fill", mOutColor)
-                .on("mouseover", function(){ mOverFunction(highlight3, text3);})
-                .on("mouseout", function(){ mOutFunction(highlight3);});
-        
-        //Conclusion text
-        //TODO text4
+            .attr('x', x(startDate))
+            .attr('y', 0 + extraYMargin)
+            .attr('width', x(endDate) - x(startDate))
+            .attr('height', height)
+            .attr("fill", mOutColor)
+            .on("mouseover", function(){ mOverFunction(highlight3, text3);})
+            .on("mouseout", function(){ mOutFunction(highlight3);});
 
         function mOverFunction(highlightZone, textToDisplay){
             msgBox.style("display", null);
@@ -170,6 +176,42 @@ var createBalanceGraph = function () {
         }
 
     });
+
+    //Legend
+    var legendData = [  { txt: "Value of £", color: colorGBP},
+                        { txt: "Balance - EU (+Croatia)", color: colorEU},
+                        { txt: "Balance - Other Countries", color: colorNoEU} ];
+    var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("font-size", "12px");
+    legend.x = 850;
+    //legend.y = height - 70;
+    legend.y = 20;
+    legend.squareSize = 20;
+    legend.selectAll('rect')
+          .data(legendData)
+            .enter()
+            .append('rect')
+            .attr('width', legend.squareSize)
+            .attr('height', legend.squareSize)
+            .style('fill', function(d) { return d.color; })
+            .attr('transform', function(d, i) {
+                var height = 25;
+                var horz = legend.x;
+                var vert = legend.y + i * height;
+                return 'translate(' + horz + ',' + vert + ')';
+            });
+    legend.selectAll('text')
+          .data(legendData)
+            .enter()
+            .append('text')
+            .text(function(d) { return d.txt; })
+            .attr('transform', function(d, i) {
+                var height = 25;
+                var horz = legend.x + legend.squareSize + 5;
+                var vert = legend.y + i * height + legend.squareSize - 5;
+                return 'translate(' + horz + ',' + vert + ')';
+            });
 
     //Colors and opacity gradient for highlight zones
     var highlightColorBase = "#B7B7B7",
