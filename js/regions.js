@@ -28,7 +28,7 @@ var line = d3.line()
 
 
 
-d3.tsv("/data/fish_tonnes.tsv", type, function(error, data) {
+d3.csv("/data/fish_tonnes.csv", type, function(error, data) {
   if (error) throw error;
 
   var regions = data.columns.slice(1).map(function(name) {
@@ -84,7 +84,7 @@ d3.tsv("/data/fish_tonnes.tsv", type, function(error, data) {
     
    g.append("text")
       .attr("x", x(refDate) - margin.left - 200)
-      .attr("y", margin.top)
+      .attr("y", 100)
       .style("font", "10px sans-serif")
       .text("EU Referendum Date 2016.06.23"); 
     
@@ -153,7 +153,7 @@ d3.tsv("/data/fish_tonnes.tsv", type, function(error, data) {
 
         d3.selectAll(".mouse-per-line")
           .attr("transform", function(d, i) {
-            console.log(width/mouse[0])
+            //console.log(width/mouse[0])
             var xDate = x.invert(mouse[0]),
                 bisect = d3.bisector(function(d) { return d.date; }).right;
                 idx = bisect(d.values, xDate);
@@ -193,7 +193,7 @@ var legendSpacing = 2;
   .attr('transform', "translate(-140,10)")
   
   legend.append('rect')
-  .attr('x',width-20)
+  .attr('x',width-90)
   .attr('y',function(d,i){
       return i * 20;
   })
@@ -203,7 +203,7 @@ var legendSpacing = 2;
   .style('stroke', z);
   
   legend.append('text')
-  .attr('x', width - 8)
+  .attr('x', width - 70)
   .attr('y', function(d, i){
       return (i * 20) + 9;
   })
