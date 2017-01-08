@@ -3,3 +3,4 @@ createRegionGraph();
 createImportExportGraphs();
 createBalanceGraph();
 createPricesGraph();
+createStocksGraph();
