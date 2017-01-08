@@ -90,7 +90,7 @@ var createStocksGraph = function () {
 
     vol_line.append("path")
       .attr("class", "line")
-      .attr("d", function(d) { console.log(d); return lineVolume(d.values); })
+      .attr("d", function(d) { return lineVolume(d.values); })
       .style("stroke", function(d) { return z(d.id); });
 
     vol_line.append("text")
@@ -113,7 +113,7 @@ var createStocksGraph = function () {
 
     prc_line.append("path")
       .attr("class", "line")
-      .attr("d", function(d) { console.log(d); return lineStockPrice(d.values); })
+      .attr("d", function(d) { return lineStockPrice(d.values); })
       .style("stroke", function(d) { return z(d.id); });
 
     prc_line.append("text")
@@ -121,7 +121,6 @@ var createStocksGraph = function () {
         return {id: d.id, value: d.values[d.values.length - 1]};
       })
       .attr("transform", function(d) {
-        console.log(d);
         return "translate(" + (x(d.value.date) - 80) + "," + y1(d.value.stockPrice) + ")";
       })
       .attr("x", 3)
