@@ -30,11 +30,9 @@ var createImportExportGraphs = function () {
 
         setUpG1();
         drawG1("Goods and Services", 0);
-        //drawG1("Food, Brevages and Tobacco", 800);
-        //drawG1("Fish", 1000);
 
         setUpG2();
-        drawG2(data);
+        drawG2("Goods and Services");
     });
 
     function setUpG1(){
@@ -126,6 +124,7 @@ var createImportExportGraphs = function () {
         //This will redraw the G1 bar chart depending on the selected industry.
         var selection = d3.select('input[name = "industry"]:checked').node().value;
         drawG1(selection, 800);
+        drawG2(selection);
     }
 
     //-----------------Graph 2---------------------------
@@ -151,18 +150,45 @@ var createImportExportGraphs = function () {
             .text("The value of imports is X% larger than that of exports");
     }
 
-    function drawG2(){
-        //Slice the data into increasingly big subsets.
-        var slices = [];
-        for (var i = 0; i < mData.length; i++) {
-            slices.push(mData.slice(0, i+1));
+    function drawG2(selection){
+        if (hasBeenDrawnInG2(selection)){ return; }
+
+        //Select the portion of data to draw.
+        var selectedData;
+        if (selection){
+            for (var i = 0; i < mData.length; i++){
+                if (mData[i].industry === selection){
+                    selectedData = mData.slice(0, i+1);
+                    break;
+                }
+            };
+        } else {
+            selectedData = mData;
         }
-        //Draw each of the slices with a time delay.
-        slices.forEach(function(slice, index){
-            setTimeout(function(){
-            drawG2Section(slice);
-            }, index * 600);
-        });
+        
+        setTimeout(function(){ drawG2Section(selectedData); }, 800);
+
+        //Keep track of which bars have been drawn so we don't redraw any.
+        for (var i = 0; i < selectionsPossible.length; i++) {
+            if (selectionsPossible[i].name === selection) {
+                barsDrawn = selectionsPossible[i].position;
+            }
+        }
+    }
+
+    //For interaction between radio buttons and G2, to not redraw bars in G2.
+    var barsDrawn = 0;
+    var selectionsPossible = [{position: 1, name: "Goods and Services", selected: false}, 
+        {position: 2, name: "Goods", selected: false},
+        {position: 3, name: "Fish", selected: false}, 
+        {position: 4, name: "Food, Beverages and Tobacco", selected: false}];
+    function hasBeenDrawnInG2(selection) {
+        for (var i = 0; i < selectionsPossible.length; i++) {
+            if (selectionsPossible[i].name === selection) {
+                return (selectionsPossible[i].position <= barsDrawn);
+            }
+        }
+        return false;
     }
 
     function drawG2Section(data) {
