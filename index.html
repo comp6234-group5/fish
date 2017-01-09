@@ -8,6 +8,7 @@
     <script src="node_modules/d3/build/d3.js"></script>
 </head>
 <body>
+  <div class="container-fluid">
     <h2 class="center-text">Brexit and the Effect on the British Fishing Industry</h2>
     <div class="row">
         <h4 class="center-text">
@@ -55,7 +56,7 @@
 	    </div>
 	    <div class="row">
 		    <p class="col-md-10 col-md-offset-1">
-		    	As can be seen, the deficit is relatively larger in the trade of fish, meaning it woudl be particularly hurt by the reintroduction of duty fees as they are outside the European Single Market. 
+		    	As can be seen, the deficit is relatively larger in the trade of fish, meaning it woudl be particularly hurt by the reintroduction of duty fees as they are outside the European Single Market.
 		    </p>
 	    </div>
 	    <br>
@@ -71,8 +72,21 @@
 	    </div>
     </span>
 
-    <div class="row center-text">
+    <hr />
+    <div class="row">
+      <h2 class="center-text">Scottish Salmon Company Stocks <small class="text-muted">(SSC.OL)</small></h2>
       <svg width="960" height="400" id="stocks" class="center-graph"></svg>
+      <p class="col-md-6 col-md-offset-3">
+      One way to examine the effect of Brexit on UK fishing prospects is to look at the stock markets. The <a href="http://www.scottishsalmon.com">Scottish Salmon Company</a> <small class="text-muted"><a href="http://finance.yahoo.com/quote/SSC.OL?p=SSC.OL">(OSE: SSC.OL)</a></small> is a large salmon fishing company listed on the Oslo Stock Exchange that mostly relies on fishing grounds in Northern British and Nordic waters, as well as farming salmon in several Scottish seawater lochs. As the largest salmon fishing company in Scotland, their profit is inextricably tied to the fishing regulations in the UK (and by extension, the regulations imposed by the EU). Originally put in place to stop overfishing and encourage sustainable environmental practices, the EU fishing regulations are an oft-cited point of contention for many die-hard Brexiteers. Many in the UK believe that excessively restrictive laws imposed by the EU are suffocating traditional seaside fishing communities - leaving thousands of people out of jobs and devastating rural populations (particularly in Scotland).
+      </p>
+
+      <p class="col-md-6 col-md-offset-3">
+      Whether this is true or not remains to be seen, but if there is a possibility of deregulation for UK fishing it should be possible to see a shift in investment attitudes towards the UK fishing industry. Notably, the stock for the Scottish Salmon Company is not traded in GBP (£); it is traded in Norwegian Krone, meaning that the stock price is (largely) isolated from the sudden drop in value that most British companies experienced. This acts as a perfect case study into speculative investment in the UK fishing industry as a result of Brexit. As can be seen from the above chart, the volume of shares in the Scottish Salmon Company greatly increases shortly before and after Brexit; in fact, the weeks before and after the referendum contain the days that have the highest number of shares traded in 2016. Not only this, but shortly after the Brexit referendum (i.e. in early July), the stock price for the Scottish Salmon Company increases greatly - by approximately £3 per share, or about 30%. This shows a concrete shift in attitudes towards the UK fishing industry, and perhaps a mark of confidence that EU regulations will be repealed and that the UK fishing industry will rebound.
+      </p>
+    </div>
+
+    <hr />
+    <div class="row center-text">
       <svg width="960" height="400" id="prices" class="center-graph"></svg>
     </div>
 
@@ -83,6 +97,6 @@
     <script src="js/fish_prices.js"></script>
     <script src="js/stocks.js"></script>
     <script src="js/main.js"></script>
-    
+
 </body>
 </html>

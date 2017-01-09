@@ -2,6 +2,10 @@ path {
 	fill: none;
 }
 
+svg {
+    margin-bottom: 4ex !important;
+}
+
 .vessels .axis--x path {
     display: none;
 }
