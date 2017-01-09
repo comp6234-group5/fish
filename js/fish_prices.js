@@ -81,7 +81,7 @@ var createPricesGraph = function () {
       .style("fill", "none")
 
     g.append("text")
-      .attr("x", x(refDate) - margin.left + 10)
+      .attr("x", x(refDate) + 20)
       .attr("y", margin.top)
       .style("font", "10px sans-serif")
       .text("EU Referendum Date (23/06/2016)");
