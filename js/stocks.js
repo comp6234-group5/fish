@@ -23,7 +23,7 @@ var createStocksGraph = function () {
     if (error) throw error;
 
     var volume = {id: "Volume", values: []};
-    var stock_prices = {id: "Stock Price (£)", values: []};
+    var stock_prices = {id: "Price", values: []};
     data.forEach(function (d) {
       var _date = parseTime(d.Date);
       volume.values.push({
@@ -76,7 +76,7 @@ var createStocksGraph = function () {
       .attr("transform", "translate(" + width + ", 0)")
       .call(yAxisRight)
       .append("text")
-      .attr("transform", "rotate(-90)")
+      .attr("transform", "rotate(90)")
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("fill", "#000")
@@ -95,10 +95,10 @@ var createStocksGraph = function () {
 
     vol_line.append("text")
       .datum(function(d) {
-        return {id: d.id, value: d.values[d.values.length - 1]};
+        return {id: d.id, value: d.values[0]};
       })
       .attr("transform", function(d) {
-        return "translate(" + (x(d.value.date) - 50) + "," + y0(d.value.volume) + ")";
+        return "translate(" + (x(d.value.date) - 80) + "," + y0(d.value.volume) + ")";
       })
       .attr("x", 3)
       .attr("dy", "0.35em")
@@ -118,7 +118,7 @@ var createStocksGraph = function () {
 
     prc_line.append("text")
       .datum(function(d) {
-        return {id: d.id, value: d.values[d.values.length - 1]};
+        return {id: d.id, value: d.values[0]};
       })
       .attr("transform", function(d) {
         return "translate(" + (x(d.value.date) - 80) + "," + y1(d.value.stockPrice) + ")";
