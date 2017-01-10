@@ -147,7 +147,7 @@ var createImportExportGraphs = function () {
             .attr("x", 60)
             .attr("y", -20)
             .attr("dy", ".71em")
-            .text("The value of imports is X% larger than that of exports");
+            .text("Value of imports as a percentage of exports");
     }
 
     function drawG2(selection){

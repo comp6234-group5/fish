@@ -184,10 +184,11 @@ var createBalanceGraph = function () {
     var legend = svg.append("g")
         .attr("class", "legend")
         .attr("font-size", "12px");
-    legend.x = 850;
+    legend.x = width - 170;
+    //legend.x = width + 30;
     //legend.y = height - 70;
-    legend.y = 20;
-    legend.squareSize = 20;
+    legend.y = 0;
+    legend.squareSize = 18;
     legend.selectAll('rect')
           .data(legendData)
             .enter()
