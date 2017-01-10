@@ -2,7 +2,7 @@ var createImportExportGraphs = function () {
     //Reference, especially for G2 - https://bl.ocks.org/RandomEtc/cff3610e7dd47bef2d01
     //Here are specified 2 graphs, G1 and G2.
     var svg1 = d3.select("svg.importExport1"),
-        margin = {top: 30, right: 10, bottom: 30, left: 100},   //height and margins are the same for both.
+        margin = {top: 30, right: 10, bottom: 20, left: 80},   //height and margins are the same for both.
         height = svg1.attr("height") - margin.top - margin.bottom,
         g1 = svg1.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -37,7 +37,7 @@ var createImportExportGraphs = function () {
 
     function setUpG1(){
         //Scales
-        var width = svg1.attr("width") - 160 - margin.left - margin.right;
+        var width = svg1.attr("width") - margin.left - margin.right;
         xG1 = d3.scaleBand().rangeRound([0, width], .1)
                 .paddingInner(0.1);
         yG1 = d3.scaleLinear()
@@ -129,7 +129,7 @@ var createImportExportGraphs = function () {
 
     //-----------------Graph 2---------------------------
     function setUpG2(){
-        var width = svg2.attr("width") - 190 - margin.left - margin.right;
+        var width = svg2.attr("width") - margin.left - margin.right;
         //Scales
         xG2 = d3.scaleBand().rangeRound([0, width], .1);
         yG2 = d3.scaleLinear().range([height, 0]);
