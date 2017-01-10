@@ -187,7 +187,7 @@ var createBalanceGraph = function () {
     legend.x = width - 170;
     //legend.x = width + 30;
     //legend.y = height - 70;
-    legend.y = 0;
+    legend.y = 10;
     legend.squareSize = 18;
     legend.selectAll('rect')
           .data(legendData)
@@ -215,7 +215,7 @@ var createBalanceGraph = function () {
             });
 
     //Colors and opacity gradient for highlight zones
-    var highlightColorBase = "#B7B7B7",
+    var highlightColorBase = "#666666",
         mOutColor = "url(#gradient1)",
         mOverColor = "url(#gradient2)";
 
