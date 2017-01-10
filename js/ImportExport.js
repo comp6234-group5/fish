@@ -59,7 +59,13 @@ var createImportExportGraphs = function () {
           .attr("transform", "rotate(-90)")
           .attr("y", -60)
           .attr("x", -160)
-          .text("Value in Millions of £");
+          .text("Millions of £");
+
+        g1.append("text") 
+            .attr("x", 20)
+            .attr("y", -20)
+            .attr("dy", ".71em")
+            .text("Value of UK Imports and Exports");
 
         //Add Bars, will be filled with data on draw.
         g1.append("rect")
@@ -147,7 +153,7 @@ var createImportExportGraphs = function () {
             .attr("x", 60)
             .attr("y", -20)
             .attr("dy", ".71em")
-            .text("Value of imports as a percentage of exports");
+            .text("Comparison of Imports as a Percentage of Exports");
     }
 
     function drawG2(selection){
