@@ -83,10 +83,10 @@ d3.csv("/data/fish_tonnes.csv", type, function(error, data) {
       .style("fill", "none")
     
    g.append("text")
-      .attr("x", x(refDate) - margin.left - 200)
-      .attr("y", 100)
+      .attr("x", x(refDate) - margin.left + 5)
+      .attr("y", margin.top)
       .style("font", "10px sans-serif")
-      .text("EU Referendum Date 2016.06.23"); 
+      .text("EU Referendum Date "); 
     
     
   // mouseover funciton show value in time 

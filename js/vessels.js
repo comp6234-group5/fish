@@ -70,7 +70,7 @@ d3.csv("./data/vessels.csv", type, function (error, data) {
           .style("fill", "none")
 
        g.append("text")
-          .attr("x", x(refDate) - margin.left - 200)
+          .attr("x", x(refDate) - margin.left - 150)
           .attr("y", margin.top)
           .style("font", "10px sans-serif")
           .text("EU Referendum Date 2016.06.23");  
