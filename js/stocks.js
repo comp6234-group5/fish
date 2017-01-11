@@ -136,14 +136,14 @@ var createStocksGraph = function () {
       .attr("y1", margin.top)
       .attr("y2", height + margin.top)
       .style("stroke-width", 2)
-      .style("stroke", "red")
+      .style("stroke", "black")
       .style("fill", "none")
 
     g.append("text")
       .attr("x", x(refDate) + 20)
       .attr("y", margin.top)
       .style("font", "10px sans-serif")
-      .text("EU Referendum Date (23/06/2016)");
+      .text("EU Referendum Date 2016.06.23");
   });
 
   function row(d, _, columns) {
